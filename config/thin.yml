@@ -1,0 +1,17 @@
+---
+
+timeout: 30
+wait: 30
+log: log/thin.log
+max_conns: 1024
+require: []
+environment: <%= ENV.fetch('RACK_ENV', 'development') %>
+max_persistent_conns: 512
+threaded: true
+daemonize: <%= ENV['DAEMON_SERVER'] == 'enable' %>
+chdir: <%= ENV.fetch('INSTALL_PATH', Dir.pwd) %>
+address: <%= ENV.fetch('ADDR', '0.0.0.0') %>
+port: <%= ENV.fetch('PORT', '8181') %>
+pid: tmp/pids/thin.pid
+tag: thin_integrator
+rackup: config.ru
