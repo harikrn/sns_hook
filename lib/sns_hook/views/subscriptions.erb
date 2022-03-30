@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-10 col-sm-10">
+        <div class="card">
+            <div class="card-header">
+                Subscriptions
+            </div>
+            <div class="card-body">
+                <table class="table table-light">
+                    <thead>
+                        <th>Endpoint</th>
+                        <th>Arn</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <% subscriptions.each do |subscription| %>
+                            <tr>
+                                <td><%= subscription.endpoint %></td>
+                                <td><%= subscription.subscription_arn %></td>
+                                <td>
+                                    <form action='/sns/subscriptions' method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="arn" value="<%= subscription.subscription_arn %>" />
+                                        <button class="btn btn-sm btn-danger" type="submit">
+                                            Unsubscribe
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+            <div class=card-footer>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscribe-modal">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<%= erb(:_subscribe, locals: { topics: SNSHook.connection.topics }) %>

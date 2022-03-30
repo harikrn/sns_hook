@@ -9,3 +9,4 @@ tmp/
 vendor
 Gemfile.lock
 coverage
+sns_notifications.pstore

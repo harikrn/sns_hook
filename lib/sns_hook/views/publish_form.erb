@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        Publish a message
+    </div>
+    <form action='/sns/publications' method='post'>
+        <div class="card-body">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="publish-topic" name="publish[topic]">
+                    <option selected value="">Please select a topic</option>
+                    <% SNSHook.connection.topics.each do |topic| %>
+                        <option value="<%= topic.topic_arn %>">
+                            <%= topic.topic_arn.split(':').last.capitalize %>
+                        </option>
+                    <% end %>
+                </select>
+                <label for="publish-topic">Select topic*</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea class="form-control" cols="30"
+                          id="publish-message"
+                          name="publish[message]" rows="10">
+                </textarea>
+                <label for="publish-message">Message</label>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                Publish
+            </button>
+        </div>
+    </form>
+</div>

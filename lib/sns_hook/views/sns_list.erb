@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-8 col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                SNS Responses
+            </div>
+            <div class="card-body consumer-data">
+                <% data.each_with_index do |resp, index| %>
+                    <% next if resp['Message'].nil? && resp.is_a?(Hash) %>
+                    <div class="card mt-3" id="mid-<%= resp['MessageId'].to_s.split('-')[2] %>">
+                        <div class="card-body">
+                            <span class="pull-left"><%= index + 1 %></span>
+                            <pre>
+                                <%= resp['Message'] || resp %>
+                            </pre>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 col-sm-4">
+        <%= erb(:publish_form) if !SNSHook.connection.subscriptions.empty? %>
+    </div>
+</div>
+
+<script type="text/javascript">
+ function appendData(data) {
+     var element = document.querySelector('.consumer-data');
+     if(!element) { return; }
+
+     data.forEach(function(d, index) {
+         var c = element.querySelector("#mid-" + d.MessageId.split('-')[2]);
+         if(c) { return true }
+
+         var str = '<div class="card-body">' +
+                   '<span class="pull-left">' + (index + 1) +
+                   '</span><pre>' + d.Message + '</pre></div>'
+         var card = document.createElement('div');
+         card.classList.add('card');
+         card.innerHTML = str;
+         card.id = 'mid' + d.MessageId;
+         element.append(card);
+     })
+ }
+
+ function fetchData() {
+     fetch('/sns/publications')
+         .then(function(response) {
+             return response.json();
+         }).then(function(data) {
+             appendData(data);
+         })
+ }
+
+ var interval = window.setInterval(fetchData, 10000);
+ window.onbeforeunload = function() {
+     clearInterval(interval);
+ }
+</script>

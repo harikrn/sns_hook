@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-10 col-sm-10">
+        <div class="card">
+            <div class="card-header">
+                Topics
+            </div>
+            <div class="card-body">
+                <table class="table table-light">
+                    <tbody>
+                        <% topics.each do |topic| %>
+                            <tr>
+                                <td><%= topic.topic_arn.split(':').last.capitalize %></td>
+                                <td>
+                                    <form action='/sns/topics' method="post">
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <input type="hidden" name="arn" value="<%= topic.topic_arn %>" />
+                                        <button class="btn btn-danger btn-sm" type="submit">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscribe-modal">
+                    Create topic
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<%= erb(:_create_topic) %>
