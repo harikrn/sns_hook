@@ -11,6 +11,16 @@ SNSHook is a simple gem to capture subscription for testing
 thin -c config/thin.yml start
 ```
 
+#### Environment variables
+
+```sh
+AWS_ACCESS_KEY_ID=YourAccessKey
+AWS_SECRET_ACCESS_KEY=YourSecretKey
+AWS_REGION=Region
+
+AWS_SNS_HOST=YourServerHostAvailableForAWS-SNS
+```
+
 ## Aws setups
 
 ### Create topic
