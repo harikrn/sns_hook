@@ -12,7 +12,8 @@ Gem::Specification.new do |s|
   s.email       = 'harikri@protonmail.com'
   s.files       = Dir['lib/**/*']
   s.homepage    = 'https://rubygems.org/gems/example'
-  s.metadata    = { 'source_code_uri' => 'https://github.com/harisr/sns_hooks' }
+  s.metadata    = { 'source_code_uri' => 'https://github.com/harisr/sns_hooks',
+                    'rubygems_mfa_required' => 'true' }
   s.required_ruby_version = '>= 2.6.2'
 
   s.add_dependency 'aws-sdk-sns', '~> 1.53.0'
