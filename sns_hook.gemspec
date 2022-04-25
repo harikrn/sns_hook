@@ -9,10 +9,10 @@ Gem::Specification.new do |s|
   s.summary     = 'This is a sinatra app for hooking with sns'
   s.description = 'This app listens to AWS SNS'
   s.authors     = %w[Harikrishnan\n Namboothiri]
-  s.email       = 'harikri@protonmail.com'
+  s.email       = 'harikrishnan.nambbothiri@eventinc.de'
   s.files       = Dir['lib/**/*']
   s.homepage    = 'https://rubygems.org/gems/example'
-  s.metadata    = { 'source_code_uri' => 'https://github.com/harisr/sns_hooks',
+  s.metadata    = { 'source_code_uri' => 'https://github.com/harikrn/sns_hooks',
                     'rubygems_mfa_required' => 'true' }
   s.required_ruby_version = '>= 2.6.2'
 
