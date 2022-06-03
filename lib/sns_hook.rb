@@ -2,7 +2,7 @@
 
 require 'zeitwerk'
 require 'sinatra'
-require 'aws-sdk-sns'
+require 'dry-configurable'
 
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect('sns_hook' => 'SNSHook')
@@ -11,6 +11,10 @@ loader.setup
 
 # SNSHook to listen to aws sns
 module SNSHook
+  extend Dry::Configurable
+
+  setting :machine, default: :aws, constructor: proc { |value| value && value.to_sym }
+
   def self.repo
     @repo ||= SNSHook::Repository.init
   end

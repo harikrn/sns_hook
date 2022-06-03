@@ -14,4 +14,5 @@ require 'sns_hook'
 Bundler.require
 
 require 'pry'
+require_relative "#{__dir__}/../config/init.rb"
 Pry.start(SNSHook)

@@ -6,7 +6,6 @@
             </div>
             <div class="card-body consumer-data">
                 <% data.each_with_index do |resp, index| %>
-                    <% next if resp['Message'].nil? && resp.is_a?(Hash) %>
                     <div class="card mt-3" id="mid-<%= resp['MessageId'].to_s.split('-')[2] %>">
                         <div class="card-body">
                             <span class="pull-left"><%= index + 1 %></span>

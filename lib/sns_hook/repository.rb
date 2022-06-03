@@ -9,10 +9,13 @@ module SNSHook
 
     class << self
       def init
-        repo = pstore.transaction(true) do
+        read || new
+      end
+
+      def read
+        pstore.transaction(true) do
           pstore[:repo]
         end
-        repo || new
       end
 
       def pstore
@@ -48,7 +51,7 @@ module SNSHook
     end
 
     def read
-      data || []
+      self.class.read&.data || []
     end
 
     def clear

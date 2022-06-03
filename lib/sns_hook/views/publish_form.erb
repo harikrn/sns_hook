@@ -8,8 +8,8 @@
                 <select class="form-select" id="publish-topic" name="publish[topic]">
                     <option selected value="">Please select a topic</option>
                     <% SNSHook.connection.topics.each do |topic| %>
-                        <option value="<%= topic.topic_arn %>">
-                            <%= topic.topic_arn.split(':').last.capitalize %>
+                        <option value="<%= topic %>">
+                            <%= topic.capitalize %>
                         </option>
                     <% end %>
                 </select>

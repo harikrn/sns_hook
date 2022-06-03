@@ -12,8 +12,8 @@
                         <select class="form-select" id="subscribe-topic" name="subscribe[topic]">
                             <option selected>Please select a topic</option>
                             <% topics.each do |topic| %>
-                                <option value="<%= topic.topic_arn %>">
-                                    <%= topic.topic_arn.split(':').last.capitalize %>
+                                <option value="<%= topic %>">
+                                    <%= topic.capitalize %>
                                 </option>
                             <% end %>
                         </select>

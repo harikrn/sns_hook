@@ -9,11 +9,11 @@
                     <tbody>
                         <% topics.each do |topic| %>
                             <tr>
-                                <td><%= topic.topic_arn.split(':').last.capitalize %></td>
+                                <td><%= topic.capitalize %></td>
                                 <td>
                                     <form action='/sns/topics' method="post">
                                         <input type="hidden" name="_method" value="DELETE" />
-                                        <input type="hidden" name="arn" value="<%= topic.topic_arn %>" />
+                                        <input type="hidden" name="arn" value="<%= topic %>" />
                                         <button class="btn btn-danger btn-sm" type="submit">
                                             Delete
                                         </button>
