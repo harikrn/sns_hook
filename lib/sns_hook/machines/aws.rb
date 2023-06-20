@@ -46,10 +46,11 @@ module SNSHook
       end
 
       def subscribe(topic_arn)
+        endpoint = URI.parse("#{ENV.fetch("AWS_SNS_HOST", "")}/sns")
         client.subscribe(
           topic_arn: topic_arn,
-          protocol: 'http',
-          endpoint: "#{ENV.fetch("AWS_SNS_HOST", "")}/sns"
+          protocol: endpoint.scheme,
+          endpoint: endpoint.to_s
         )
       end
 
