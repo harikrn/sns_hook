@@ -1,0 +1,56 @@
+version: "2"
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  kafka:
+    image: docker.io/bitnami/kafka:latest
+    networks:
+      - app-tier
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
+  server:
+    image: sns-hook-app
+    build:
+      context: .
+    depends_on:
+      - kafka
+    networks:
+      - app-tier
+    volumes:
+      - "pstore_data:/app/data/"
+    command: |
+      bundle exec thin -C config/thin.yml start
+    ports:
+      - "8181:8181"
+    environment:
+      - SNS_MACHINE=kafka
+      - KAFKA_HOST=kafka:9092
+
+  listener:
+    image: sns-hook-app
+    depends_on:
+      - kafka
+      - server
+    networks:
+      - app-tier
+    volumes:
+      - "pstore_data:/app/data/"
+    command: |
+      bundle exec rake app:listener
+    environment:
+      - SNS_MACHINE=kafka
+      - KAFKA_HOST=kafka:9092
+
+volumes:
+  kafka_data:
+    driver: local
+  pstore_data:
+    driver: local

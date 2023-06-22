@@ -19,7 +19,7 @@ module SNSHook
       end
 
       def pstore
-        @pstore ||= PStore.new('sns_notifications.pstore')
+        @pstore ||= PStore.new('data/sns_notifications.pstore')
       end
     end
 

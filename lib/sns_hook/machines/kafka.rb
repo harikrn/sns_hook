@@ -10,7 +10,7 @@ module SNSHook
 
       class << self
         def client
-          @client ||= ::Kafka.new('localhost:9092', client_id: 'sns_hook')
+          @client ||= ::Kafka.new(ENV.fetch('KAFKA_HOST', 'localhost:9092'), client_id: 'sns_hook')
         end
       end
 
@@ -34,7 +34,7 @@ module SNSHook
       end
 
       def subscribe(topic)
-        consumer.subscribe(topic)
+        consumer.subscribe(topic, start_from_beginning: false)
       end
 
       def subscriptions(*_args)

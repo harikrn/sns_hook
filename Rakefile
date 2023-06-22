@@ -8,6 +8,7 @@ RSpec::Core::RakeTask.new(:spec) { |t| t.verbose = false }
 def unsubscribe
   puts 'Unsubscribed'
   SNSHook.connection.unsubscribe
+  exit!
 end
 
 # rake console
@@ -32,6 +33,7 @@ namespace :app do
     trap('TERM') { unsubscribe }
     trap('INT') { unsubscribe }
 
+    puts 'Listening...'
     SNSHook.connection.listen do |message|
       puts message.key, message.value
       notification =
